@@ -1,46 +1,12 @@
-#include<iostream>
-#include<string>
-using namespace std;
-bool place(int *a,int k)
-{
-	for(int i=0;i<k;i++)
-		if(((i-k)==(a[i]-a[k]))||((i-k)==(a[k]-a[i])))
-			return false;
-	return true;
-}
-void queenchild(int *a,int k,int kqueen)
-{
-	if(a[k]==kqueen)
-	{
-		for(int i=0;i<kqueen;i++)
-			cout<<a[i]<<",";
-		cout<<endl;
-	}
-	else
-	{
-		for(int j=k;j<kqueen;j++)
-		{
-			int temp=a[j];
-			a[j]=a[k];
-			a[k]=temp;
-			if(place(a,k))
-				queenchild(a,k+1,kqueen);
-			temp=a[j];
-			a[j]=a[k];
-			a[k]=temp;
-		}
-	}
-}
-void queen(int *a,int kqueen)
-{
-	queenchild(a,0,kqueen);
-}
-void main()
-{
-	int k=0;
-	cin>>k;
-	int *a=new int[k+1];
-	for(int i=0;i<=k;i++)
-		a[i]=i;
-	queen(a,k);
-}
+问题描述：
+八皇后问题是十九世纪著名数学家高斯于1850年提出的。问题是：在8*8的棋盘上摆放8个皇后，使其不能互相攻击，即任意的两个皇后不能处在同意行，同一列，或同意斜线上。可以把八皇后问题拓展为n皇后问题，即在n*n的棋盘上摆放n个皇后，使其任意两个皇后都不能处于同一行、同一列或同一斜线上。
+
+问题分析 ： 
+
+显然，每一行可以而且必须放一个皇后，所以n皇后问题的解可以用一个n元向量X=（x1,x2,.....xn）表示，其中，1≤ i≤ n且1≤ xi≤ n，即第n个皇后放在第i行第xi列上。
+
+由于两个皇后不能放在同一列上，所以，解向量X必须满足的约束条件为:
+
+xi≠ xj;
+
+若两个皇后的摆放位置分别是（i,xi）和（j,xj），在棋盘上斜率为-1的斜线上，满足条件i-j=xi-xj;在棋盘上斜率为1的斜线上，满足条件i-j=xi-xj;
